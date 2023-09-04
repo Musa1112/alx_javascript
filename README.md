@@ -1,1 +1,2 @@
-my  js repo
+my js repo
+js is amazing 
