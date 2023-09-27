@@ -1,4 +1,4 @@
-const c = "C is fun";
+const C = "C is fun";
 const Python = "python is cool";
 const Js = "JavaScrip is amazing";
 
