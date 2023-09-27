@@ -6,5 +6,5 @@ console.log(myObject);
 /*
 YOUR CODE HERE
 */
-myObject = 86
+Object.assign(myObject, { value: 86 });
 console.log(myObject);
