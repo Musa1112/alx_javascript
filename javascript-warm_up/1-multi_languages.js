@@ -3,5 +3,5 @@ const python = "python is cool";
 const js = "javaScrip is amazing";
 
 console.log(c);
-console.log(cpython);
+console.log(python);
 console.log(js);
