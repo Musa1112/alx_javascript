@@ -7,4 +7,5 @@ function add(x, y) {
     // Add the two numbers
     return x + y;
   }
+  console.log(4, 85)
   
