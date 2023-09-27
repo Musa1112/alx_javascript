@@ -1,7 +1,7 @@
 const c = "C is fun";
-const python = "python is cool";
-const js = "JavaScrip is amazing";
+const Python = "python is cool";
+const Js = "JavaScrip is amazing";
 
-console.log(c);
-console.log(python);
-console.log(js);
+console.log(C);
+console.log(Python);
+console.log(Js);
