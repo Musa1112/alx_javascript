@@ -6,5 +6,5 @@ console.log(myObject);
 /*
 YOUR CODE HERE
 */
-myObject.replace(86)
+myObject = 86
 console.log(myObject);
