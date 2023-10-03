@@ -1,4 +1,3 @@
-
-console.log(C);
-console.log(Python);
-console.log(Js);
+console.log("C is fun")
+console.log("Python is cool")
+console.log("JavaScript is amazing")
