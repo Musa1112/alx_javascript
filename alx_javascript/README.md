@@ -1,1 +1,1 @@
-js advance class
+js advance class.

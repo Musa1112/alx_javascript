@@ -39,3 +39,7 @@ const studentHogwarts = () => {
   draco.penalizeStudent();
   draco.penalizeStudent();
   console.log(draco.getScore());
+
+
+
+  // cool

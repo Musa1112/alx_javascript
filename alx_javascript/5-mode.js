@@ -34,3 +34,6 @@ function changeMode(size, weight, transform, background, color) {
   }
   
   main();
+
+
+  // cool
