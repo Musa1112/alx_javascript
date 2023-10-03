@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Example</title>
+
+</head>
+
+<body>
+    <p>
+    <h1>Login to the website</h1>
+    </p>
+    <div class="dvi-1">
+        <input type="text" id="firstname" placeholder="First Name"><br>
+        <input type="text" id="email" placeholder="Email"><br>
+        <button onclick="setCookies()">Log me in</button>
+    </div>
+    <div>
+        <p>
+        <h1>Cookies</h1>
+        </p>
+        <button onclick="showCookies()">Show the cookies</button>
+
+    </div>
+
+    <script>
+        function setCookies() {
+            const d = new Date();
+            d.setTime(d.getTime() + (10 * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            var firstname = document.getElementById("firstname").value;
+            var email = document.getElementById("email").value;
+            document.cookie = "Firstname=" + firstname + ';' + expires;
+            document.cookie = "Email=" + email + ';' + expires;
+        }
+
+        function showCookies() {
+            var cookies = document.cookie.split("; ");
+            var cookieText = "Cookies: ";
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].split("=");
+                cookieText += cookie[0] + " = " + cookie[1] + "; ";
+            }
+            var p = document.createElement("p");
+            p.innerHTML = cookieText;
+            document.body.appendChild(p);
+        }
+    </script>
+
+    <style>
+        .dvi-1 {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+
+
+    const availableItems = ["Shampoo", "Soap", "Sponge", "Water"]
+    if (typeof (Storage) === "undefined") {
+        alert("Sorry, your browser does not support Web storage. Try again with a better one");
+    } else {
+        // Local storage is available, proceed with the application
+        createStore();
+        displayCart();
+    }
+    function addItemToCart(item) {
+
+        let cart = JSON.parse(sessionStorage.getItem('cart')) || {};
+
+        if (cart.hasOwnProperty(item)) {
+            // If the item already exists, increment the quantity
+            cart[item] += 1;
+        } else {
+
+            cart[item] = 1;
+        }
+
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+
+        displayCart();
+
+
+    }
+    function createStore() {
+        var x = document.createElement("h2");
+        x.innerHTML = "Available products:"
+        document.body.appendChild(x);
+        var ul = document.createElement("ul");
+        document.body.appendChild(ul);
+
+        availableItems.forEach(function (item) {
+            var li = document.createElement("li");
+            li.textContent = item;
+            li.addEventListener("click", function () {
+
+                addItemToCart(item);
+                // location.reload();
+
+            });
+            ul.appendChild(li);
+        });
+    }
+    function displayCart() {
+        const y = document.querySelector('.f');
+        // console.log(y)
+        if (!y) {
+            var x = document.createElement("h2");
+            x.classList.add('f');
+            x.innerHTML = "Your cart:"
+            document.body.appendChild(x);
+        }
+
+
+        const div = document.createElement('div');
+        document.body.appendChild(div);
+
+        // Remove any list child if the div tag already exists
+        while (div.firstChild) {
+            div.removeChild(div.firstChild);
+        }
+
+        // Call updateCart function
+        updateCart();
+
+    }
+    function getCartFromStorage() {
+        // Get the cart string from Session storage
+        const cartString = sessionStorage.getItem('cart');
+        // If there is no cart, return an empty object
+        if (!cartString) {
+            return {};
+        }
+
+        // Parse the cart string into a JSON object
+        try {
+            const cart = JSON.parse(cartString);
+            return cart;
+        } catch (error) {
+            console.error('Error parsing cart from Session storage:', error);
+            return {};
+        }
+    }
+    function removeItemfromCart(item) {
+        let cart = JSON.parse(sessionStorage.getItem('cart')) || {};
+
+        if (cart.hasOwnProperty(item)) {
+            // If the item already exists, increment the quantity
+            cart[item] -= 1;
+            if (cart[item] === 0)
+                delete cart[item];
+        }
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        displayCart();
+    }
+    function clearCart() {
+        sessionStorage.clear();
+        displayCart();
+    }
+
+    function updateCart() {
+        const div = document.querySelector('div');
+        while (div.firstChild) {
+            div.removeChild(div.firstChild);
+        }
+
+        // Add a list to the div tag
+        const ul = document.createElement('ul');
+        div.appendChild(ul);
+        let cart = sessionStorage.getItem('cart');
+        let jobj = JSON.parse(cart)
+        console.log(jobj)
+        // Check if the cart is empty
+        if (Object.entries(jobj).length < 1 || !jobj) {
+            // Add an item "Your cart is empty"
+            const li = document.createElement('li');
+            li.textContent = 'Your cart is empty';
+            ul.appendChild(li);
+        } else {
+            // Add the list of items within the cart
+            Object.entries(jobj).map(([key, quantity]) => {
+                const li = document.createElement('li');
+                li.textContent = `${key} x ${quantity} (remove)`;
+
+                li.addEventListener('click', () => {
+                    removeItemfromCart(key);
+                });
+
+
+                ul.appendChild(li);
+            }
+            );
+        }
+        // Add "Clear my cart" item at the top of the cart
+        const clearButton = document.createElement('li');
+        clearButton.textContent = 'Clear my cart';
+        clearButton.addEventListener('click', () => {
+            clearCart();
+            // displayCart();
+        });
+        ul.insertBefore(clearButton, ul.firstChild);
+    }
+
+
+</script>
+
+<style>
+    li:hover {
+        color: blue;
+    }
+</style>

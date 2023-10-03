@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Example</title>
+    <script src="
+    https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+    "></script>
+</head>
+
+<body>
+    <div class="form">
+        <p>
+        <h2>Login to the website</h2>
+        </p>
+        <div class="dvi-1">
+            <form action="" class="dvi-1">
+
+                <input type="text" id="firstname" placeholder="First Name" required><br>
+                <input type="email" id="email" placeholder="Email" required><br>
+                <button onclick="setCookies()">Log me in</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="welcome-container">
+
+    </div>
+
+
+    <script>
+        function setCookies(days = 10) {
+
+            var firstname = document.getElementById("firstname").value;
+            var email = document.getElementById("email").value;
+            Cookies.set('Firstname', firstname, { expires: days, path: '/' });
+            Cookies.set('Email', email, { expires: days, path: '/' });
+
+        }
+
+        function showCookies() {
+            var cookies = document.cookie.split("; ");
+            var cookieText = "";
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].split("=");
+                if (cookie[0] === 'Firstname' || cookie[0] === 'Email') {
+                    cookieText += ' ' + cookie[0] + ": " + cookie[1] + " - ";
+                }
+            }
+            var p = document.createElement("p");
+            p.innerHTML = cookieText;
+            document.body.appendChild(p);
+        }
+
+        function getCookie(name) {
+
+            return Cookies.get(name);
+        }
+
+        function showForm() {
+            let x = document.querySelector('.form')
+            x.style.display = 'grid'
+        }
+
+        function hideForm() {
+            let x = document.querySelector('.form')
+            x.style.display = 'none'
+        }
+
+        function deleteCookiesAndShowForm() {
+            // setCookies(0)
+            Cookies.remove('Firstname', { path: '/' });
+            Cookies.remove('Email', { path: '/' });
+            showForm()
+            let body = document.querySelector('.welcome-container');
+            let message = document.querySelector('.welcome');
+            message && body.removeChild(message);
+        }
+
+        function showWelcomeMessageOrForm() {
+            let body = document.querySelector('.welcome-container');
+            let message = document.querySelector('.welcome');
+            let user = getCookie('Firstname');
+            console.log(user)
+            if (user !== undefined) {
+                // is logged in
+                hideForm();
+                const name = getCookie('Firstname')
+                let msg = document.createElement("h1")
+                msg.classList.add('welcome');
+                msg.innerHTML = 'Welcome:' + name;
+                // Create a logout link
+                var logoutLink = document.createElement("a");
+                logoutLink.href = "#";
+                logoutLink.textContent = "(Logout)";
+                logoutLink.style.fontWeight = "normal";
+                logoutLink.style.fontStyle = "italic";
+                logoutLink.style.marginLeft = "10px";
+
+                // Add an event listener to the logout link
+                logoutLink.addEventListener("click", deleteCookiesAndShowForm);
+
+                msg.appendChild(logoutLink)
+                !message && body.appendChild(msg);
+            }
+            else {
+                // not logged in
+                message && body.removeChild(message);
+                showForm()
+
+            }
+
+        }
+
+    </script>
+
+    <style>
+        .dvi-1 {
+            display: flex;
+            gap: 5px;
+        }
+
+        .form {
+            display: grid;
+        }
+    </style>
+</body>
+
+</html>
